@@ -1,0 +1,35 @@
+#!name=Zotero PDF2zh 分流
+#!desc=为 Zotero PDF2zh 翻译链路分流：翻译接口与 GitHub 资源走代理，模型/依赖下载保持直连（省流量、更快）
+#!author=WorkBuddy
+#!date=2026-10-27
+#!version=1.0.0
+
+[Rule]
+# ── 翻译接口 ──────────────────────────────────────────────
+# pdf2zh_next 内置的免费翻译端点（translator_impl/siliconflowfree.py）：
+#   https://api1.pdf2zh-next.com/chatproxy
+#   https://api2.pdf2zh-next.com/chatproxy
+# 均为境外服务，直连会在 TLS 握手阶段被掐断（实测 SSL_ERROR_SYSCALL / UNEXPECTED_EOF），
+# 表现为「段落没翻译、原文照留」，因此必须走代理。
+DOMAIN-SUFFIX,pdf2zh-next.com,兜底后备策略
+DOMAIN-SUFFIX,pdf2zh.com,兜底后备策略
+
+# ── 更新检查与原始资源 ────────────────────────────────────
+# 插件/server 的自动更新读 GitHub；raw.githubusercontent.com 直连不通。
+DOMAIN-SUFFIX,github.com,兜底后备策略
+DOMAIN-SUFFIX,githubusercontent.com,兜底后备策略
+DOMAIN-SUFFIX,githubassets.com,兜底后备策略
+
+# ── 模型与字体资源（保持直连）────────────────────────────
+# babeldoc 首次运行从 modelscope 拉 doclayout ONNX 模型与 CMap，国内直连更快。
+DOMAIN-SUFFIX,modelscope.cn,DIRECT
+DOMAIN-SUFFIX,modelscope.com,DIRECT
+DOMAIN-SUFFIX,aliyuncs.com,DIRECT
+
+# ── Python 依赖源（保持直连）──────────────────────────────
+# 仅安装/更新翻译环境时使用，没必要占用代理。
+DOMAIN-SUFFIX,pypi.org,DIRECT
+DOMAIN-SUFFIX,pythonhosted.org,DIRECT
+DOMAIN-SUFFIX,mirrors.ustc.edu.cn,DIRECT
+DOMAIN-SUFFIX,mirrors.aliyun.com,DIRECT
+DOMAIN-SUFFIX,tuna.tsinghua.edu.cn,DIRECT
