@@ -4,6 +4,30 @@
 
 只做一件事：**让翻译接口走代理，让模型和依赖下载留在直连**。
 
+## 一键导入（推荐）
+
+Loon → **配置 → 插件 → 添加** → 粘贴下面任一链接 → 启用 → 重载配置。
+
+国内推荐用 jsDelivr：
+
+```
+https://cdn.jsdelivr.net/gh/zjhenrynsyh/loon-plugin-zotero-pdf2zh@main/Zotero_PDF2zh.plugin
+```
+
+GitHub 原始地址（跟随 main 分支，始终最新）：
+
+```
+https://raw.githubusercontent.com/zjhenrynsyh/loon-plugin-zotero-pdf2zh/main/Zotero_PDF2zh.plugin
+```
+
+版本固定地址（不会随更新变化，适合想锁版本的场景）：
+
+```
+https://cdn.jsdelivr.net/gh/zjhenrynsyh/loon-plugin-zotero-pdf2zh@v1.0.1/Zotero_PDF2zh.plugin
+```
+
+> 导入后 Loon 会定期回源更新，插件里改了规则这边自动同步，不用手动重装。
+
 ## 为什么需要它
 
 Zotero PDF2zh 的翻译引擎 `pdf2zh_next` 内置两个免费翻译端点：
